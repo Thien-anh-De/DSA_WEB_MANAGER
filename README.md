@@ -1,7 +1,7 @@
 # Bài tập nhóm: Quản lý thành viên nhóm
 FIle này sẽ hướng dẫn các bạn cài đặt và hiểu về cách thức xây dựng 1 trang web tĩnh 1 cách đơn giản nhất
 ## Giao diện web quản lý thành viên nhóm
-![Giao diện web](fe.png)
+![Giao diện web](img_hdsd\fe.png)
 ## Yêu cầu cài đặt
 + Git (https://git-scm.com/downloads)
 + Vscode (https://code.visualstudio.com/download)
@@ -14,7 +14,7 @@ FIle này sẽ hướng dẫn các bạn cài đặt và hiểu về cách thứ
 git clone https://github.com/Thien-anh-De/DSA_WEB_MANAGER.git
 ```
 Hiện tại file đang ở ổ C, trong thư mục Asus của User
-![Vị trí hiện tại của file](clone_git.png)
+![Vị trí hiện tại của file](img_hdsd\clone_git.png)
 - Tiếp tục vào file, open folder trong vscode
 - Tại file có tên "index.html" bạn hãy bấm vào ô có chữ "Go Live" để có thể chạy trang web
 ![go live](go_live.png)
