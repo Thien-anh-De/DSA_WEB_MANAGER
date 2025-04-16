@@ -6,7 +6,7 @@ FIle này sẽ hướng dẫn các bạn cài đặt và hiểu về cách thứ
 + Git (https://git-scm.com/downloads)
 + Vscode (https://code.visualstudio.com/download)
 + extension: Live server(để chạy web tĩnh)
-![live server](go_live.png)
+![live server](live_server.png)
 ## Hướng dẫn cài đặt
 - Cài đặt git như các ứng dụng bình thường
 - Mở cmd(command prompt) để tải repository về máy
