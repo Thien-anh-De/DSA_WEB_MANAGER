@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Quản lý thành viên nhóm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+    }
+    /*định dạng hộp input*/
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    /*định dạng nút*/
+    button {
+      padding: 10px 20px;
+      border: none;
+      background: #007BFF;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+    /* hiệu ứng khi di chuột vào nút*/
+    button:hover {
+      background: #0056b3;
+    }
+    /* định dạng hộp output*/
+    .output {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background: #eee;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    hr {
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Quản lý thành viên nhóm</h1>
+
+    <label>Họ và Tên:</label>
+    <input type="text" id="ten" placeholder="Nhập họ và tên">
+
+    <label>Quê quán:</label>
+    <input type="text" id="que" placeholder="Nhập quê quán">
+
+    <label>Ngày sinh:</label>
+    <input type="date" id="ngaysinh">
+
+    <button onclick="themThanhVien()">Thêm thành viên</button>
+    <button onclick="hienThi()">Hiển thị danh sách</button>
+    <button onclick="sapXepTheoTuoi()">Sắp xếp theo tuổi</button>
+
+    <hr>
+
+    <label>Tìm kiếm theo tên:</label>
+    <input type="text" id="timten">
+    <button onclick="timTheoTen()">Tìm theo tên</button>
+
+    <label>Tìm kiếm theo quê quán:</label>
+    <input type="text" id="timque">
+    <button onclick="timTheoQue()">Tìm theo quê</button>
+
+    <div class="output" id="output"></div>
+  </div>
+  
+  <script>
+    //biến đổi code c++ sang java
+    let danhSach = [];//tao mang danh sach
+
+    function themThanhVien() {
+        //lấy dữ liệu từ 3 input phía trên, document.getElementById: lấy dữ liệu trên html
+      const ten = document.getElementById("ten").value.trim();//trim(): loại bỏ khoảng trắng thừa
+      const que = document.getElementById("que").value.trim();
+      const ngaysinh = document.getElementById("ngaysinh").value;
+        //nếu có trường để trống, thông báo
+      if (!ten || !que || !ngaysinh) {
+        alert("Vui lòng nhập đầy đủ thông tin.");
+        return;
+      }
+      //nếu hợp lệ, đẩy thông tin vào danh sách và xóa các nd trong ô input
+      danhSach.push({ ten, que, ngaysinh });//thêm object vào mảng danh sách
+      //xóa nội dung trong ô input
+      document.getElementById("ten").value = '';
+      document.getElementById("que").value = '';
+      document.getElementById("ngaysinh").value = '';
+      hienThi();//hiện thị danh sách phía dưới
+    }
+    //hàm hiển thị danh sách
+    function hienThi(ds = danhSach) {
+      let output = "Danh sách thành viên:\n";
+      if (ds.length === 0) output += "Chưa có thành viên nào.";
+      else {
+        ds.forEach((tv, index) => {//duyệt mảng
+          output += `${index + 1}. ${tv.ten} | ${tv.que} | ${formatDate(tv.ngaysinh)}\n`;//formatDate để chuyển định dạng ngày
+        });
+      }
+      //ghi vào thẻ output phía trên
+      document.getElementById("output").innerText = output;
+    }
+    //hàm tìm kiếm theo tên
+    function timTheoTen() {
+      const ten = document.getElementById("timten").value.trim().toLowerCase();
+      const ketQua = danhSach.filter(tv => tv.ten.toLowerCase().includes(ten));
+      hienThi(ketQua);
+    }
+    //hàm tìm kiếm theo quê quán
+    function timTheoQue() {
+        //lấy chuỗi tìm kiếm quê, chuyển về chữ thường để không phân biệt hoa thường
+      const que = document.getElementById("timque").value.trim().toLowerCase();
+      //duyệt qua danh sách, nếu có thì lọc ra
+      const ketQua = danhSach.filter(tv => tv.que.toLowerCase().includes(que));
+      //hiển thị những kết quả lọc được
+      hienThi(ketQua);
+    }
+    //sắp xếp danh sách theo độ tuổi
+    function sapXepTheoTuoi() {
+        //sắp xếp từ nhỏ đến lớn, tạo đối tượng Date từ chuỗi ban đầu nhập
+      danhSach.sort((a, b) => new Date(a.ngaysinh) - new Date(b.ngaysinh));
+      hienThi();
+    }
+    //chuyển đổi yyyy/mm/dd -> dd/mm/yyyy
+    function formatDate(isoDate) {
+      const [year, month, day] = isoDate.split("-");
+      return `${day}/${month}/${year}`;
+    }
+  </script>
+
+</body>
+</html>
